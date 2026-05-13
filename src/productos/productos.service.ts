@@ -2,6 +2,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -21,12 +22,15 @@ export class ProductosService {
     private categoriaRepo: Repository<Categoria>,
   ) {}
 
-  async create(createProductoDto: CreateProductoDto) {
-    const categoria = await this.categoriaRepo.findOne({
-      where: {
-        id: createProductoDto.categoriaId,
-      },
-    });
+  async create(
+    createProductoDto: CreateProductoDto,
+  ) {
+    const categoria =
+      await this.categoriaRepo.findOne({
+        where: {
+          id: createProductoDto.categoriaId,
+        },
+      });
 
     if (!categoria) {
       throw new NotFoundException(
@@ -51,10 +55,11 @@ export class ProductosService {
   }
 
   async findOne(id: number) {
-    const producto = await this.productoRepo.findOne({
-      where: { id },
-      relations: ['categoria'],
-    });
+    const producto =
+      await this.productoRepo.findOne({
+        where: { id },
+        relations: ['categoria'],
+      });
 
     if (!producto) {
       throw new NotFoundException(
@@ -71,7 +76,28 @@ export class ProductosService {
   ) {
     const producto = await this.findOne(id);
 
-    Object.assign(producto, updateProductoDto);
+    if (updateProductoDto.categoriaId) {
+      const categoria =
+        await this.categoriaRepo.findOne({
+          where: {
+            id: updateProductoDto.categoriaId,
+          },
+        });
+
+      if (!categoria) {
+        throw new NotFoundException(
+          'Categoría no encontrada',
+        );
+      }
+
+      producto.categoria = categoria;
+    }
+
+    Object.assign(producto, {
+      nombre: updateProductoDto.nombre,
+      precio: updateProductoDto.precio,
+      stock: updateProductoDto.stock,
+    });
 
     return this.productoRepo.save(producto);
   }
