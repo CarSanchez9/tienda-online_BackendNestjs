@@ -1,68 +1,100 @@
-ejemplo de crear POST
-categoria
-{
-  "nombre": "Electrónica"
-}
-Producto
-{
-  "nombre": "Laptop HP",
-  "precio": 3500,
-  "stock": 10,
-  "categoriaId": 1
-}
-Clientes
-{
-  "nombres": "Carlos",
-  "paterno": "Escobar",
-  "materno": "Lopez",
-  "email": "cassrlos@gmail.com"
-}
-Ordenes
-{
-  "estado": "pendiente",
-  "clienteId": 6
-}
-Orden productos
-{
-  "cantidad": 2,
-  "precio_unitario": 3500,
-  "ordenId": 5,
-  "productoId": 3
-}
-
-
-
 # Tienda Online API
 
-API REST desarrollada con NestJS, TypeORM y PostgreSQL.
+API REST desarrollada con **NestJS**, **TypeORM** y **PostgreSQL** para gestionar una tienda online.
 
-## Tecnologías usadas
+# Autor
 
+Carlos Alberto Sanchez Escobar
+
+## Funcionalidades
+
+El sistema permite administrar:
+
+- Categorías
+- Productos
+- Clientes
+- Órdenes
+- Relación Orden-Producto
+
+Incluye operaciones CRUD completas:
+
+- Crear
+- Listar
+- Buscar por ID
+- Actualizar
+- Eliminar
+
+Además cuenta con documentación interactiva usando **Swagger/Scalar**.
+
+---
+
+# Tecnologías utilizadas
+
+- Node.js
 - NestJS
 - TypeScript
-- TypeORM
 - PostgreSQL
 - Docker
+- TypeORM
 - Swagger
 
 ---
 
-## Requisitos
+# Requisitos previos
 
-Antes de ejecutar instalar:
+Antes de ejecutar el proyecto, instalar:
 
-- Node.js
-- npm
-- Docker
-- Git
+## 1. Node.js
 
-## Levantar PostgreSQL con Docker
+Verificar instalación:
 
 ```bash
-docker start tienda_postgres
+node -v
+npm -v
 ```
 
-Si no existe:
+---
+
+## 2. Docker Desktop
+
+Verificar instalación:
+
+```bash
+docker --version
+docker ps
+```
+
+---
+
+## 3. Git
+
+Verificar instalación:
+
+```bash
+git --version
+```
+
+```
+
+Entrar al proyecto:
+
+```bash
+cd tienda_online
+```
+
+---
+
+# Instalar dependencias
+
+```bash
+npm install
+```
+
+---
+
+# Levantar PostgreSQL con Docker
+
+Ejecutar:
 
 ```bash
 docker run --name tienda_postgres \
@@ -72,34 +104,156 @@ docker run --name tienda_postgres \
 -d postgres
 ```
 
-## Ejecutar proyecto
+Verificar que el contenedor esté corriendo:
+
+```bash
+docker ps
+```
+
+---
+
+# Ejecutar proyecto
+
+Iniciar en modo desarrollo:
 
 ```bash
 npm run start:dev
 ```
 
-Servidor:
+Servidor disponible en:
 
 ```bash
 http://localhost:3000
 ```
 
-Swagger:
+---
+
+# Documentación API (Swagger / Scalar)
+
+Abrir en navegador:
 
 ```bash
-http://localhost:3000/docs
+http://localhost:3000/api
 ```
 
-## Módulos implementados
+Aquí se pueden probar todos los endpoints de manera interactiva.
 
-- Categorías
-- Productos
-- Clientes
-- Órdenes
-- OrdenProducto
+---
 
+# Endpoints disponibles
 
+## Categorías
 
-## Autor
+- POST /categorias
+- GET /categorias
+- GET /categorias/:id
+- PATCH /categorias/:id
+- DELETE /categorias/:id
 
-Carlos  Sanchez Escobar
+---
+
+## Productos
+
+- POST /productos
+- GET /productos
+- GET /productos/:id
+- PATCH /productos/:id
+- DELETE /productos/:id
+
+---
+
+## Clientes
+
+- POST /clientes
+- GET /clientes
+- GET /clientes/:id
+- PATCH /clientes/:id
+- DELETE /clientes/:id
+
+---
+
+## Órdenes
+
+- POST /ordenes
+- GET /ordenes
+- GET /ordenes/:id
+- PATCH /ordenes/:id
+- DELETE /ordenes/:id
+
+---
+
+## Orden Producto
+
+- POST /orden-producto
+- GET /orden-producto
+- GET /orden-producto/:id
+- PATCH /orden-producto/:id
+- DELETE /orden-producto/:id
+
+---
+
+# Ejemplos JSON
+
+## Crear categoría
+
+```json
+{
+  "nombre": "Electrónica"
+}
+```
+
+---
+
+## Crear producto
+
+```json
+{
+  "nombre": "Laptop HP",
+  "precio": 3500,
+  "stock": 10,
+  "categoriaId": 1
+}
+```
+
+---
+
+## Crear cliente
+
+```json
+{
+  "nombres": "Carlos",
+  "paterno": "Escobar",
+  "materno": "Lopez",
+  "email": "carlos@gmail.com"
+}
+```
+
+---
+
+## Crear orden
+
+```json
+{
+  "estado": "pendiente",
+  "clienteId": 1
+}
+```
+
+---
+
+## Crear orden-producto
+
+```json
+{
+  "cantidad": 2,
+  "precio_unitario": 3500,
+  "ordenId": 1,
+  "productoId": 1
+}
+```
+
+---
+
+# Autor
+
+Carlos Alberto Sanchez Escobar
