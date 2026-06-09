@@ -1,12 +1,7 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+
 import { TypeOrmModule } from '@nestjs/typeorm';
-
-import { Categoria } from './categorias/entities/categoria.entity';
-import { Producto } from './productos/entities/producto.entity';
-import { Cliente } from './clientes/entities/cliente.entity';
-import { Ordene } from './ordenes/entities/ordene.entity';
-import { OrdenProducto } from './orden_producto/entities/orden_producto.entity';
-
 
 import { CategoriasModule } from './categorias/categorias.module';
 import { ProductosModule } from './productos/productos.module';
@@ -16,22 +11,28 @@ import { OrdenProductoModule } from './orden_producto/orden_producto.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'tienda_db', 
-      synchronize: true,
+
+      host: process.env.DB_HOST,
+
+      port: parseInt(
+        process.env.DB_PORT || '5432',
+      ),
+
+      username: process.env.DB_USERNAME,
+
+      password: process.env.DB_PASSWORD,
+
+      database: process.env.DB_NAME,
+
       autoLoadEntities: true,
-      entities: [
-        Categoria,
-        Producto,
-        Cliente,
-        Ordene,
-        OrdenProducto,
-      ],
+
+      synchronize: true,
     }),
 
     CategoriasModule,

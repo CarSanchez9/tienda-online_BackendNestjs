@@ -11,7 +11,6 @@ async function bootstrap() {
     AppModule,
   );
 
-  // Configuración de Swagger
   const config = new DocumentBuilder()
     .setTitle('Tienda Online API')
     .setDescription('API REST NestJS')
@@ -30,6 +29,12 @@ async function bootstrap() {
     document,
   );
 
-  await app.listen(3000);
+  const port =
+    process.env.PORT || 3000;
+
+  await app.listen(
+    Number(port),
+    '0.0.0.0',
+  );
 }
 bootstrap();
