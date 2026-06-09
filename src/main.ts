@@ -7,9 +7,7 @@ import {
 } from '@nestjs/swagger';
 
 async function bootstrap() {
-  const app = await NestFactory.create(
-    AppModule,
-  );
+  const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
     .setTitle('Tienda Online API')
@@ -17,11 +15,10 @@ async function bootstrap() {
     .setVersion('1.0')
     .build();
 
-  const document =
-    SwaggerModule.createDocument(
-      app,
-      config,
-    );
+  const document = SwaggerModule.createDocument(
+    app,
+    config,
+  );
 
   SwaggerModule.setup(
     'api',
@@ -29,12 +26,8 @@ async function bootstrap() {
     document,
   );
 
-  const port =
-    process.env.PORT || 3000;
+  const port = process.env.PORT || 3000;
 
-  await app.listen(
-    Number(port),
-    '0.0.0.0',
-  );
+  await app.listen(port, '0.0.0.0');
 }
 bootstrap();
